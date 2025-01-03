@@ -31,17 +31,26 @@ function RecommendedSchemes() {
     padding: "20px",
   };
 
+  const cardContainerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+    marginTop: "20px",
+  };
+
   return (
     <div style={containerStyle}>
       <h2>Recommended Schemes</h2>
-      {schemes.map((scheme, index) => (
-        <SchemeCard
-          key={index}
-          title={scheme.title}
-          description={scheme.description}
-          image={scheme.image}
-        />
-      ))}
+      <div style={cardContainerStyle}>
+        {schemes.map((scheme, index) => (
+          <SchemeCard
+            key={index}
+            title={scheme.title}
+            description={scheme.description}
+            image={scheme.image}
+          />
+        ))}
+      </div>
     </div>
   );
 }

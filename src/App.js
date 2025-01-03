@@ -5,6 +5,8 @@ import DiscoverScheme from './pages/DiscoverScheme';
 import CreateProfile from './pages/ProfilePage';
 import UploadDocuments from './pages/UploadDocuments';
 import ChatBotScreen from './pages/ChatBot';
+import SchemeDetail from './pages/SchemeDetail';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
   {
     path:"/chatbot",
     element:<ChatBotScreen/>
+  },
+  {
+    path:"/scheme/:title",
+    element:<SchemeDetail/>
   }
   
 ]);

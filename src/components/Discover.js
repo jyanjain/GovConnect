@@ -8,22 +8,32 @@ function Discover() {
 
   const filterContainerStyle = {
     display: "flex",
-    flexWrap: "wrap", // Allows wrapping to the next line
-    gap: "15px", // Adjusts the spacing between buttons
-    marginTop: "10px",
-    maxWidth: "600px", // Optional: Sets a max width to control the wrapping behavior
+    flexWrap: "wrap",
+    gap: "15px",
+    marginTop: "20px",
+    maxWidth: "700px",
   };
-  
+
   const filterButtonStyle = {
-    padding: "10px 25px", // Slightly wider padding for a better rounded look
+    padding: "10px 20px",
     backgroundColor: "#e0e0e0",
     border: "none",
-    borderRadius: "50px", // Makes the button edges fully rounded
+    borderRadius: "50px",
     cursor: "pointer",
-    fontSize: "14px", // Adjust font size for a polished look
-    whiteSpace: "nowrap", // Prevents text wrapping within buttons
+    fontSize: "14px",
+    whiteSpace: "nowrap",
   };
-  
+
+  const searchInputStyle = {
+    padding: "10px",
+    width: "100%",
+    maxWidth: "400px",
+    fontSize: "16px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    marginTop: "20px",
+  };
+
   return (
     <div style={headerContainerStyle}>
       <h1>Discover Scheme</h1>
@@ -38,6 +48,11 @@ function Discover() {
         <button style={filterButtonStyle}>Disability</button>
         <button style={filterButtonStyle}>Gender</button>
       </div>
+      <input
+        type="text"
+        placeholder="Search schemes"
+        style={searchInputStyle}
+      />
     </div>
   );
 }

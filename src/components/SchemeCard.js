@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 function SchemeCard({ title, description, image }) {
+  const navigate = useNavigate();
+
   const cardStyle = {
     display: "flex",
     alignItems: "center",
@@ -10,6 +13,8 @@ function SchemeCard({ title, description, image }) {
     backgroundColor: "#fff",
     border: "1px solid #ddd",
     borderRadius: "10px",
+    transition: "transform 0.2s, box-shadow 0.2s",
+    cursor: "pointer"
   };
 
   const textStyle = {
@@ -30,14 +35,27 @@ function SchemeCard({ title, description, image }) {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
+    transition: "background-color 0.2s"
   };
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+    const formattedTitle = title.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/scheme/${formattedTitle}`); 
+  };
+  
+
   return (
-    <div style={cardStyle}>
+    <div style={cardStyle} onClick={handleClick}>
       <div style={textStyle}>
         <h3>{title}</h3>
         <p>{description}</p>
-        <button style={buttonStyle}>View details</button>
+        <button 
+          style={buttonStyle}
+          onClick={handleClick}
+        >
+          View details
+        </button>
       </div>
       <img src={image} alt={title} style={imageStyle} />
     </div>

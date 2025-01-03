@@ -1,15 +1,12 @@
 import React from "react";
-import bannerImage from '../assets/images/banner.png';
+import bannerImage from "../assets/images/banner.png";
 
 function ImageBanner() {
   const bannerContainerStyle = {
     position: "relative",
+    height: "60vh",
+    background: `url(${bannerImage}) no-repeat center center/cover`,
     textAlign: "center",
-  };
-
-  const imageStyle = {
-    width: "100%",
-    height: "auto",
   };
 
   const textContainerStyle = {
@@ -18,7 +15,7 @@ function ImageBanner() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     color: "#fff",
-    textShadow: "0px 0px 5px rgba(0, 0, 0, 0.8)",
+    textShadow: "0 2px 8px rgba(0, 0, 0, 0.7)",
   };
 
   const searchBarStyle = {
@@ -28,10 +25,11 @@ function ImageBanner() {
   };
 
   const inputStyle = {
-    width: "300px",
+    width: "350px",
     padding: "10px",
+    border: "none",
     borderRadius: "5px 0 0 5px",
-    border: "1px solid #ccc",
+    outline: "none",
   };
 
   const buttonStyle = {
@@ -45,11 +43,6 @@ function ImageBanner() {
 
   return (
     <div style={bannerContainerStyle}>
-      <img
-        src={bannerImage}
-        alt="Banner"
-        style={imageStyle}
-      />
       <div style={textContainerStyle}>
         <h1>Instant access to public schemes and services</h1>
         <p>Search, find, and apply for the right scheme for you.</p>

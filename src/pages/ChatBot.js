@@ -3,25 +3,22 @@ import Navbar from "../components/Navbar";
 
 function ChatBotScreen() {
   const [messages, setMessages] = useState([
-    { 
-      sender: "user", 
-      text: "I need to return an item.", 
+    {
+      sender: "user",
+      text: "I need to return an item.",
       time: "10:02 AM",
-      name: "You"
+      name: "You",
     },
-    { 
-      sender: "bot", 
-      text: "Would you like to return your item for a refund or exchange?", 
+    {
+      sender: "bot",
+      text: "Would you like to return your item for a refund or exchange?",
       time: "10:03 AM",
-      name: "Customer support"
+      name: "Customer support",
     },
   ]);
   const [input, setInput] = useState("");
 
-  const navLinks = [
-    { label: "Home", href: "/" },
-    
-  ];
+  const navLinks = [{ label: "Home", href: "/" }];
 
   const commonQueries = [
     "How do I reset my password?",
@@ -37,18 +34,17 @@ function ChatBotScreen() {
       sender: "user",
       text: input,
       time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      name: "You"
+      name: "You",
     };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setInput("");
 
-    // Simulate bot response
     setTimeout(() => {
       const botResponse = {
         sender: "bot",
         text: "I understand you're trying to get help. How can I assist you further?",
         time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        name: "Customer support"
+        name: "Customer support",
       };
       setMessages((prevMessages) => [...prevMessages, botResponse]);
     }, 1000);
@@ -63,17 +59,16 @@ function ChatBotScreen() {
       sender: "user",
       text: query,
       time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      name: "You"
+      name: "You",
     };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-    // Simulate bot response
     setTimeout(() => {
       const botResponse = {
         sender: "bot",
         text: `Let me help you with: ${query}`,
         time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        name: "Customer support"
+        name: "Customer support",
       };
       setMessages((prevMessages) => [...prevMessages, botResponse]);
     }, 1000);
@@ -82,71 +77,78 @@ function ChatBotScreen() {
   return (
     <div style={styles.page}>
       <Navbar links={navLinks} />
-      
-      <div style={styles.content}>
-        <header style={styles.header}>
-          <h1 style={styles.title}>How can we help you?</h1>
-          <h2 style={styles.languageHeading}>Select a language</h2>
-          <div style={styles.languageSelector}>
-            <button style={styles.languageButton}>English</button>
-            <button style={styles.languageButton}>Hindi</button>
-          </div>
-        </header>
+      <div style={styles.container}>
+        {/* Left Section: Chat and Input */}
+        <div style={styles.leftSection}>
+          <header style={styles.header}>
+            <h1 style={styles.title}>How can we help you?</h1>
+            <h2 style={styles.languageHeading}>Select a language</h2>
+            <div style={styles.languageSelector}>
+              <button style={styles.languageButton}>English</button>
+              <button style={styles.languageButton}>Hindi</button>
+            </div>
+          </header>
 
-        <div style={styles.chatWindow}>
-          <div style={styles.chatTitle}>Chat history</div>
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              style={msg.sender === "user" ? styles.userMessageContainer : styles.botMessageContainer}
-            >
-              <div style={msg.sender === "user" ? styles.userMessageContent : styles.botMessageContent}>
-                <div style={{
-                  ...styles.profileCircle,
-                  backgroundColor: msg.sender === "user" ? "#007bff" : "#e0e0e0",
-                  color: msg.sender === "user" ? "#fff" : "#666"
-                }}>
-                  {msg.sender === "user" ? "Y" : "C"}
-                </div>
-                <div style={styles.messageContent}>
-                  <div style={styles.messageName}>{msg.name}</div>
-                  <div style={msg.sender === "user" ? styles.userMessage : styles.botMessage}>
-                    {msg.text}
+          <div style={styles.chatWindow}>
+            <div style={styles.chatTitle}>Chat history</div>
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                style={msg.sender === "user" ? styles.userMessageContainer : styles.botMessageContainer}
+              >
+                <div style={msg.sender === "user" ? styles.userMessageContent : styles.botMessageContent}>
+                  <div
+                    style={{
+                      ...styles.profileCircle,
+                      backgroundColor: msg.sender === "user" ? "#007bff" : "#e0e0e0",
+                      color: msg.sender === "user" ? "#fff" : "#666",
+                    }}
+                  >
+                    {msg.sender === "user" ? "Y" : "C"}
                   </div>
-                  <span style={styles.timestamp}>{msg.time}</span>
+                  <div style={styles.messageContent}>
+                    <div style={styles.messageName}>{msg.name}</div>
+                    <div style={msg.sender === "user" ? styles.userMessage : styles.botMessage}>
+                      {msg.text}
+                    </div>
+                    <span style={styles.timestamp}>{msg.time}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={styles.commonQueries}>
-          <h2 style={styles.commonQueriesTitle}>Common queries</h2>
-          <ul style={styles.queryList}>
-            {commonQueries.map((query, index) => (
-              <li 
-                key={index} 
-                style={styles.queryItem}
-                onClick={() => handleQueryClick(query)}
-              >
-                {query} <span style={styles.arrow}>›</span>
-              </li>
             ))}
-          </ul>
+          </div>
+
+          <div style={styles.inputContainer}>
+            <input
+              type="text"
+              placeholder="Type your question here..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              style={styles.input}
+            />
+            <button onClick={handleSendMessage} style={styles.sendButton}>
+              Send
+            </button>
+          </div>
         </div>
 
-        <div style={styles.inputContainer}>
-          <input
-            type="text"
-            placeholder="Type your question here..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-            style={styles.input}
-          />
-          <button onClick={handleSendMessage} style={styles.sendButton}>
-            Send
-          </button>
+        {/* Right Section: Common Queries */}
+        <div style={styles.rightSection}>
+          <div style={styles.commonQueries}>
+            <h2 style={styles.commonQueriesTitle}>Common queries</h2>
+            <ul style={styles.queryList}>
+              {commonQueries.map((query, index) => (
+                <li
+                  key={index}
+                  style={styles.queryItem}
+                  onClick={() => handleQueryClick(query)}
+                >
+                  {query} <span style={styles.arrow}>›</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -160,13 +162,30 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#ffffff",
+    overflow: "hidden", // Prevents the entire page from scrolling
   },
-  content: {
-    width: "100%",
-    maxWidth: "800px",
-    margin: "0 auto",
+  container: {
+    display: "flex",
+    justifyContent: "space-between",
     padding: "16px",
-    boxSizing: "border-box",
+    width: "100%",
+    maxWidth: "100%", // Keeps the layout readable
+    margin: "0 auto", // Centers the layout
+    gap: "16px",
+    flexWrap: "wrap", // Ensures better handling on smaller screens
+    height: "100vh", // Makes sure the container spans the full height of the screen
+    overflow: "hidden", // Prevents overflow of content
+  },
+  leftSection: {
+    flex: 2,
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+    overflowY: "auto", // Makes the chat window scrollable
+  },
+  rightSection: {
+    flex: 1,
+    overflowY: "auto", // Keeps common queries scrollable
   },
   header: {
     textAlign: "center",
@@ -174,14 +193,14 @@ const styles = {
   },
   title: {
     fontSize: "24px",
-    margin: "0 0 16px",
     fontWeight: "600",
+    marginBottom: "16px",
   },
   languageHeading: {
     fontSize: "16px",
-    margin: "0 0 8px",
     fontWeight: "500",
     color: "#333",
+    marginBottom: "8px",
   },
   languageSelector: {
     display: "flex",
@@ -198,13 +217,13 @@ const styles = {
     transition: "all 0.2s ease",
   },
   chatWindow: {
-    padding: "20px",
+    flex: 1,
     backgroundColor: "#fff",
     borderRadius: "12px",
-    marginBottom: "20px",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
-    height: "400px",
-    overflowY: "auto",
+    padding: "20px",
+    overflowY: "auto", // Keeps the chat window scrollable
+    maxHeight: "calc(100vh - 200px)", // Ensures chat doesn't overflow out of view
   },
   chatTitle: {
     fontSize: "16px",
@@ -216,13 +235,11 @@ const styles = {
     marginBottom: "16px",
     display: "flex",
     justifyContent: "flex-end",
-    width: "100%",
   },
   botMessageContainer: {
     marginBottom: "16px",
     display: "flex",
     justifyContent: "flex-start",
-    width: "100%",
   },
   userMessageContent: {
     display: "flex",
@@ -261,39 +278,31 @@ const styles = {
     color: "#fff",
     padding: "12px 16px",
     borderRadius: "12px",
-    borderTopRightRadius: "4px",
     fontSize: "14px",
-    lineHeight: "1.4",
-    wordWrap: "break-word",
   },
   botMessage: {
     backgroundColor: "#f5f5f5",
     color: "#333",
     padding: "12px 16px",
     borderRadius: "12px",
-    borderTopLeftRadius: "4px",
     fontSize: "14px",
-    lineHeight: "1.4",
-    wordWrap: "break-word",
   },
   timestamp: {
-    display: "block",
     fontSize: "12px",
     color: "#999",
     marginTop: "4px",
   },
   commonQueries: {
-    padding: "20px",
     backgroundColor: "#fff",
     borderRadius: "12px",
-    marginBottom: "20px",
+    padding: "20px",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
   },
   commonQueriesTitle: {
     fontSize: "16px",
     fontWeight: "500",
     color: "#333",
-    margin: "0 0 12px",
+    marginBottom: "12px",
   },
   queryList: {
     listStyle: "none",
@@ -317,11 +326,11 @@ const styles = {
   },
   inputContainer: {
     display: "flex",
-    padding: "20px",
+    gap: "12px",
     backgroundColor: "#fff",
     borderRadius: "12px",
+    padding: "20px",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
-    gap: "12px",
   },
   input: {
     flex: 1,
@@ -336,9 +345,8 @@ const styles = {
     color: "#fff",
     border: "none",
     borderRadius: "8px",
-    cursor: "pointer",
     fontSize: "14px",
-    fontWeight: "500",
+    cursor: "pointer",
   },
 };
 

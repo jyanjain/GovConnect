@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function CreateProfile() {
+  const navigate = useNavigate();
+
   const formContainerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -38,6 +41,27 @@ function CreateProfile() {
     fontSize: "24px",
     fontWeight: "bold",
     marginBottom: "20px",
+  };
+
+  const buttonContainerStyle = {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "20px",
+  };
+
+  const buttonStyle = {
+    padding: "10px 20px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    color: "#fff",
+    backgroundColor: "#007bff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  };
+
+  const handleButtonClick = () => {
+    navigate("/upload");
   };
 
   return (
@@ -79,6 +103,11 @@ function CreateProfile() {
             <input type="date" style={inputStyle} />
           </div>
         </form>
+        <div style={buttonContainerStyle}>
+          <button style={buttonStyle} onClick={handleButtonClick}>
+            Create Profile
+          </button>
+        </div>
       </div>
     </div>
   );
