@@ -7,6 +7,17 @@ function ImageBanner() {
     height: "60vh",
     background: `url(${bannerImage}) no-repeat center center/cover`,
     textAlign: "center",
+    overflow: "hidden", // Ensures overlay fits perfectly
+  };
+
+  const overlayStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.3)", // Adjust darkness with opacity
+    zIndex: 1, // Ensures overlay is behind the text
   };
 
   const textContainerStyle = {
@@ -16,6 +27,7 @@ function ImageBanner() {
     transform: "translate(-50%, -50%)",
     color: "#fff",
     textShadow: "0 2px 8px rgba(0, 0, 0, 0.7)",
+    zIndex: 2, // Ensures text is above the overlay
   };
 
   const searchBarStyle = {
@@ -43,6 +55,7 @@ function ImageBanner() {
 
   return (
     <div style={bannerContainerStyle}>
+      <div style={overlayStyle}></div>
       <div style={textContainerStyle}>
         <h1>Instant access to public schemes and services</h1>
         <p>Search, find, and apply for the right scheme for you.</p>
