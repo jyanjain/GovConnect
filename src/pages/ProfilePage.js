@@ -86,8 +86,12 @@ function CreateProfile() {
             <input type="text" style={inputStyle} placeholder="Enter your last name" />
           </div>
           <div>
-            <label style={labelStyle}>Email / ईमेल</label>
-            <input type="email" style={inputStyle} placeholder="Enter your email" />
+            <label style={labelStyle}>Location / जगह</label>
+            <select style={selectStyle}>
+              <option value="">Select your location</option>
+              <option value="urban">Urban</option>
+              <option value="rural">Rural</option>
+            </select>
           </div>
           <div>
             <label style={labelStyle}>Income / आय</label>
