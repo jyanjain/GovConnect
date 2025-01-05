@@ -6,6 +6,7 @@ import RecommendedSchemes from "../components/RecommendedSchemes";
 function DiscoverScheme() {
   const mainContentStyle = {
     marginLeft: "10px", 
+    marginTop: "-40px",
     padding: "20px",    // Optional: Adds padding inside the main content
   };
 

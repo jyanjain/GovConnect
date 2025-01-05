@@ -2,7 +2,7 @@ import React from "react";
 
 function Discover() {
   const headerContainerStyle = {
-    marginLeft: "270px",
+    marginLeft: "270px", // Adjust to leave space for the sidebar
     padding: "20px",
   };
 
@@ -11,7 +11,7 @@ function Discover() {
     flexWrap: "wrap",
     gap: "15px",
     marginTop: "20px",
-    maxWidth: "700px",
+    maxWidth: "700px", // Optional: restricts width of the filter buttons
   };
 
   const filterButtonStyle = {
@@ -24,14 +24,17 @@ function Discover() {
     whiteSpace: "nowrap",
   };
 
+  const searchContainerStyle = {
+    marginTop: "20px",
+    width: "100%", // Ensures the container spans the full width
+  };
+
   const searchInputStyle = {
     padding: "10px",
-    width: "100%",
-    maxWidth: "400px",
+    width: "98%", // Takes up the full width of the parent container
     fontSize: "16px",
     borderRadius: "5px",
     border: "1px solid #ccc",
-    marginTop: "20px",
   };
 
   return (
@@ -48,11 +51,13 @@ function Discover() {
         <button style={filterButtonStyle}>Disability</button>
         <button style={filterButtonStyle}>Gender</button>
       </div>
-      <input
-        type="text"
-        placeholder="Search schemes"
-        style={searchInputStyle}
-      />
+      <div style={searchContainerStyle}>
+        <input
+          type="text"
+          placeholder="Search schemes"
+          style={searchInputStyle}
+        />
+      </div>
     </div>
   );
 }
