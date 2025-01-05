@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Navbar from "../components/Navbar";
 
 function UploadDocuments() {
@@ -9,6 +10,8 @@ function UploadDocuments() {
     balanceSheet: null,
     returnFile: null,
   });
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const containerStyle = {
     padding: "20px",
@@ -109,6 +112,10 @@ function UploadDocuments() {
     input.click();
   };
 
+  const handleProceed = () => {
+    navigate("/discover"); // Navigate to the /discover endpoint
+  };
+
   return (
     <div>
       <Navbar
@@ -165,13 +172,14 @@ function UploadDocuments() {
             </div>
           </div>
         </div>
-<div>
-        <button style={uploadButtonStyle} onClick={handleUpload}>
-          Upload
-        </button>
+        <div>
+          <button style={uploadButtonStyle} onClick={handleUpload}>
+            Upload
+          </button>
         </div>
         <button
           style={proceedButtonStyle}
+          onClick={handleProceed} // Handle proceed click
           disabled={
             !uploadedFiles.aadhar ||
             !uploadedFiles.pan ||
