@@ -28,14 +28,17 @@ function RecommendedSchemes() {
 
   const containerStyle = {
     marginLeft: "270px",
+    marginTop: "-30px",
     padding: "20px",
   };
 
   const cardContainerStyle = {
     display: "flex",
     flexDirection: "column",
-    gap: "20px",
-    marginTop: "20px",
+    gap: "0",
+    marginTop: "-20px",
+    // marginBottom: "-30px",
+    // marginRight: "70px",
   };
 
   return (
