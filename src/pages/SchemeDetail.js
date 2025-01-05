@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import React, { useRef } from 'react';
+import { useParams, useNavigate, NavLink } from 'react-router-dom';
 
 function SchemeDetail() {
   const { title } = useParams();
@@ -11,7 +10,6 @@ function SchemeDetail() {
   const eligibilityRef = useRef(null);
   const documentsRef = useRef(null);
 
-  // Hardcoded schemes data
   const schemes = {
     'atal-pension-yojana': {
       title: 'Atal Pension Yojana',
@@ -33,7 +31,6 @@ function SchemeDetail() {
     },
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
   const currentScheme = schemes[title] || Object.values(schemes)[0];
 
   const scrollToSection = (ref) => {
@@ -56,97 +53,90 @@ function SchemeDetail() {
     overflowY: 'auto',
   };
 
-  const contentStyle = {
-    marginLeft: '300px', // Adjusted to leave space for the sidebar
-    padding: '20px',
-  };
-
-  const searchContainerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '8px',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
+  const discoverLinkStyle = {
+    display: 'block',
+    padding: '10px',
     marginBottom: '20px',
+    textDecoration: 'none',
+    color: '#333',
+    fontWeight: 'bold',
+    borderBottom: '2px solid #333',
+    width: 'fit-content',
   };
 
-  const schemeListStyle = {
-    listStyle: 'none',
-    padding: 0,
+  const activeDiscoverLinkStyle = {
+    ...discoverLinkStyle,
+    color: '#007bff',
+    borderBottom: '2px solid #007bff',
   };
 
   const schemeItemStyle = (isActive) => ({
-    padding: '8px 0',
+    padding: '10px',
     cursor: 'pointer',
     fontWeight: isActive ? 'bold' : 'normal',
-    color: isActive ? '#007bff' : 'inherit',
+    color: isActive ? '#007bff' : '#333',
+    borderRadius: '5px',
+    marginBottom: '8px',
+    backgroundColor: isActive ? '#dfe6e9' : 'transparent',
   });
 
-  const navButtonStyle = {
-    padding: '8px 16px',
-    margin: '0 8px',
-    border: 'none',
-    background: 'none',
-    cursor: 'pointer',
-    borderBottom: '2px solid transparent',
+  const contentStyle = {
+    marginLeft: '300px',
+    padding: '20px',
   };
 
-  const filteredSchemes = Object.entries(schemes).filter(([key, scheme]) =>
-    scheme.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const sectionHeaderStyle = {
+    fontSize: '1.25em',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+  };
+
+  const sectionTextStyle = {
+    fontSize: '1.10em',
+    lineHeight: '1.5',
+  };
 
   return (
     <div style={{ display: 'flex' }}>
       {/* Sidebar Section */}
       <div style={sidebarStyle}>
-        <div style={searchContainerStyle}>
-          <Search size={20} />
-          <input
-            type="text"
-            placeholder="Search schemes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              marginLeft: '8px',
-              border: 'none',
-              outline: 'none',
-              background: 'transparent',
-              width: '100%',
-            }}
-          />
-        </div>
+        <NavLink
+          to="/discover"
+          style={({ isActive }) => (isActive ? activeDiscoverLinkStyle : discoverLinkStyle)}
+        >
+          Discover Schemes
+        </NavLink>
 
-        <ul style={schemeListStyle}>
-          {filteredSchemes.map(([key, scheme]) => (
-            <li
-              key={key}
-              style={schemeItemStyle(key === title)}
-              onClick={() => handleSchemeClick(scheme.title)}
-            >
-              {scheme.title}
-            </li>
-          ))}
-        </ul>
+        {Object.entries(schemes).map(([key, scheme]) => (
+          <div
+            key={key}
+            style={schemeItemStyle(key === title)}
+            onClick={() => handleSchemeClick(scheme.title)}
+          >
+            {scheme.title}
+          </div>
+        ))}
       </div>
 
       {/* Main Content Section */}
       <div style={contentStyle}>
-        <h1>{currentScheme.title}</h1>
+        <h1 style={sectionHeaderStyle}>{currentScheme.title}</h1>
         <div style={{ borderBottom: '1px solid #ddd', marginBottom: '20px' }}>
-          <button onClick={() => scrollToSection(overviewRef)} style={navButtonStyle}>Overview</button>
-          <button onClick={() => scrollToSection(benefitsRef)} style={navButtonStyle}>Benefits</button>
-          <button onClick={() => scrollToSection(eligibilityRef)} style={navButtonStyle}>Eligibility</button>
-          <button onClick={() => scrollToSection(documentsRef)} style={navButtonStyle}>Documents</button>
+          <button onClick={() => scrollToSection(overviewRef)} style={{ padding: '8px 16px', margin: '0 8px', border: 'none', background: 'none', cursor: 'pointer' }}>Overview</button>
+          <button onClick={() => scrollToSection(benefitsRef)} style={{ padding: '8px 16px', margin: '0 8px', border: 'none', background: 'none', cursor: 'pointer' }}>Benefits</button>
+          <button onClick={() => scrollToSection(eligibilityRef)} style={{ padding: '8px 16px', margin: '0 8px', border: 'none', background: 'none', cursor: 'pointer' }}>Eligibility</button>
+          <button onClick={() => scrollToSection(documentsRef)} style={{ padding: '8px 16px', margin: '0 8px', border: 'none', background: 'none', cursor: 'pointer' }}>Documents</button>
         </div>
 
-        {/* Sections */}
-        <div ref={overviewRef} style={{ marginBottom: '40px' }}>
-          <h2>Overview</h2>
-          <p>{currentScheme.overview}</p>
+        <div ref={overviewRef} style={{ marginBottom: '10px' }}>
+        <h3 style={{ ...sectionHeaderStyle, marginBottom: '8px' }}>Overview</h3>
+        <p style={{ ...sectionTextStyle, marginTop: '0', marginBottom: '0' }}>
+    {currentScheme.overview}
+  </p>
         </div>
 
-        <div ref={benefitsRef} style={{ marginBottom: '40px' }}>
-          <h2>Benefits</h2>
+        <div ref={benefitsRef} style={{ marginBottom: '20px' }}>
+          <h3 style={sectionHeaderStyle}>Benefits</h3>
           <div style={{ display: 'flex', gap: '20px' }}>
             {currentScheme.benefits.map((benefit, index) => (
               <div
@@ -155,6 +145,7 @@ function SchemeDetail() {
                   padding: '16px',
                   backgroundColor: '#f5f5f5',
                   borderRadius: '8px',
+                  fontSize: '1.10em',
                 }}
               >
                 {benefit}
@@ -163,13 +154,18 @@ function SchemeDetail() {
           </div>
         </div>
 
-        <div ref={eligibilityRef} style={{ marginBottom: '40px' }}>
-          <h2>Eligibility</h2>
+        <div ref={eligibilityRef} style={{ marginBottom: '20px' }}>
+          <h3 style={sectionHeaderStyle}>Eligibility</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {currentScheme.eligibility.map((criterion, index) => (
               <label
                 key={index}
-                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '1.10em',
+                }}
               >
                 <input type="checkbox" checked readOnly />
                 {criterion}
@@ -179,8 +175,8 @@ function SchemeDetail() {
         </div>
 
         <div ref={documentsRef}>
-          <h2>Required Documents</h2>
-          <ul style={{ paddingLeft: '20px' }}>
+          <h3 style={sectionHeaderStyle}>Required Documents</h3>
+          <ul style={{marginTop:'0px', paddingLeft: '20px', fontSize: '1.10em' }}>
             {currentScheme.documents.map((document, index) => (
               <li key={index} style={{ marginBottom: '8px' }}>{document}</li>
             ))}
